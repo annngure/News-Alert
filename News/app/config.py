@@ -1,9 +1,10 @@
-import os
+from os import environ env
 
 class Config:
     '''
     configuration parent class
     '''
+    NEWS_API_BASE_URL='https://newsapi.org/api_key={}'
 class ProdConfig(Config):
     '''
     configuration child class
