@@ -15,4 +15,10 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
+    #To enable debug mode.
     DEGBUG = True
+
+config_options ={
+    'development':DevConfig,
+    'production':ProdConfig
+}
