@@ -1,6 +1,6 @@
 import unittest
-from models import news
-News=news.News
+from .models import news
+News =news.News
 
 class NewsTest(unittest.TestCase):
     '''
@@ -10,8 +10,9 @@ class NewsTest(unittest.TestCase):
         '''
         Set up method that will run before every Test
         '''
-        self.new_news=News(9898,'Danger Ahead!','Sign that is put up but nobody follows','https://img.news.org/50/500',45,23)
+        self.new_news=News('Danger Ahead!','https://img.news.org/50/500','Sign that is put up but nobody follows')
     def test_instance(self):
         self.assertTrue(isinstance(self.new_news,News))
-if __name__=='__main__':
-    unittest.main()
+        
+if __name__ ='__main':
+   unittest.main()
