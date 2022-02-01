@@ -47,3 +47,19 @@ def process_results(news_list):
             news_object =News(headlines,image,shortstory)
             news_result.append(news_object)
         return news_result
+# getting to news
+def get_news(headlines):
+    get_news_details_url= base_url.format(headlines,api_key)
+
+    with urllib.request.urlopen(get_news_details_url) as url:
+        news_details_data = url.read()
+        news_details_response = json.loads(news_details_data)
+
+        news_object = None
+        if news_details_response:
+            headlines = news_details_response.get('headlines')
+            image = news_details_response.get('image')
+            shortstory=news_details_response.get('shortstory')
+
+            news_object = News(headlines,image,shortstory)
+    return news_object
