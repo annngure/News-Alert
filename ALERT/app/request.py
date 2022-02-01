@@ -2,6 +2,7 @@ from app import app
 import urllib.request,json
 from .models import news
 
+breakpoint()
 News = news.News
 
 #Getting the api key
@@ -23,7 +24,7 @@ def get_news(category):
         news_result = None
         
         if get_news_response['results']:
-            news_result_list = get_news_response['result']
+            news_result_list = get_news_response['results']
             news_result = process_results(news_result_list)
         return news_result
 
@@ -39,17 +40,19 @@ def process_results(news_list):
     '''
     news_results = []
     for news_item in news_list:
-        headlines= news_item.get('headlines')
-        image=news_item.get('image')
-        shortstory=news_item.get('shortstory')
-
+        image= news_item.get('image')
+        title=news_item.get('title')
+        description=news_item.get('description')
+        url=news_item.get('url')
+        time=news_item.get('publisheAt')
+        content=news_item.get('content')
         if poster:
-            news_object =News(headlines,image,shortstory)
+            news_object =News(image,title,description,url,publisheAt,content)
             news_result.append(news_object)
         return news_result
 # getting to news
-def get_news(headlines):
-    get_news_details_url= base_url.format(headlines,api_key)
+def get_news(title):
+    get_news_details_url= base_url.format(title,api_key)
 
     with urllib.request.urlopen(get_news_details_url) as url:
         news_details_data = url.read()
@@ -57,9 +60,11 @@ def get_news(headlines):
 
         news_object = None
         if news_details_response:
-            headlines = news_details_response.get('headlines')
-            image = news_details_response.get('image')
-            shortstory=news_details_response.get('shortstory')
-
-            news_object = News(headlines,image,shortstory)
+            image = news_details_response.get('urlToImage')
+            title = news_details_response.get('title')
+            description=news_details_response.get('description')
+            url=news_details_response.get('url')
+            time=news_details_response.get('publisheAt')
+            content=news_details_response.get('content')
+            news_object = News(image,title,description,url,publisheAt,content)
     return news_object
