@@ -68,3 +68,18 @@ def get_news(title):
             content=news_details_response.get('content')
             news_object = News(image,title,description,url,publisheAt,content)
     return news_object
+
+# search news
+def search_news(news_name):
+    search_news_url='https://newsapi.org/v2/everything?q={}&from=2022-02-01&sortBy=popularity&apiKey={}'.formart(api_key,news_name)
+    with urllib.request.urlopen(search_news_url) as url:
+        search_news_data = url.read()
+        search_news_response = json.loads(search_news_data)
+
+        search_news_results = None
+
+        if search_news_response['results']:
+            search_news_list = search_news_response['results']
+            search_news-results = process_results(search_news_list)
+
+        return search_news_results
