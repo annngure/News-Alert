@@ -1,3 +1,6 @@
+{%extends,base.html%}
+{%import 'marcos.html' as marco%}
+<!-- content block -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +10,26 @@
     <title>NEWS</title>
 </head>
 <body>
-    <h1>Hello!</h1>
+   <!-- Content block -->
+    {% block content %}
+    
+    <!-- Popular news -->
+    <h3> Popular News</h3>
+    <ul>
+        {{ macro.displayNewsList(popular)}}
+    </ul>
+    <!-- Upcoming news  -->
+    <h3> Upcoming News </h3>
+    <ul>
+        {{ macro.displayNewsList(upcoming)}}
+    </ul>
+    <!-- Current News -->
+    <h3>Current News</h3>
+    <ul>
+        {{ macro.displayNewsList(current_news)}}
+    </ul>
+    
+    
+    {% endblock%}
 </body>
 </html>
