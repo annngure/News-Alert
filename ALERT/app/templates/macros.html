@@ -1,15 +1,16 @@
-{%marco displayNewsList(news_list)%}
+ {%macro displayNewsList(news_list)%}
  
     {%for news in news_list %}
     <div class="col-xs-12 col-sm-4 col-md-2">
         <img src="{{ news.poster }}" alt="{{ news.title }} poster" class="img-responsive">
-    <!-- <li>{{news.title}}</li> -->
+     <!-- <li>{{news.title}}</li>  -->
     <li class="text-center">
         <a href="/news/{{news.headlines}}">
             {{ news.title|truncate(10)}}</a>
     </li>
-</div>
+</div> 
 
 
     {%endfor%}
 {% endmacro %}
+
