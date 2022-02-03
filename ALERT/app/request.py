@@ -1,12 +1,11 @@
 from app import app
 import urllib.request,json
-from .models import news,headlines,business
-
-News = news.News
+from  .models.news import Sources,Business,Everything,Headlines
+# News = news.News
 
 #the  api keys available
 api_key = app.config['NEWS_API_KEY']
-sources_url= app.config['SOURCE_BASE_API_URL']
+# source_base_api_url= app.config['SOURCE_BASE_API_URL']
 top_headlines_news_url=app.config['TOP_HEADLINES_BASE_API_URL']
 business_top_headlines_url=app.config['BUSINESS_TOP_HEADLINES']
 # base_url = app.config['NEWS_API_BASE_URL']
@@ -38,13 +37,16 @@ def process_results(source_list):
     '''
     sources_results = []
     for news_item in sources_list:
-        image=news_item.get('image')
+        id=news_item.get('id')
+        name=news_item.get('name')
+        author=news_item.get('author')
         title=news_item.get('title')
+        image=news_item.get('image')
         description=news_item.get('description')
         url=news_item.get('url')
         time=news_item.get('publisheAt')
         content=news_item.get('content')
-        new_source =News(image,title,description,url,publisheAt,content)
+        new_source =News(id.name,author,title,image,description,url,publisheAt,content)
         sources_results.append(news_object)
     
     return sources_results
@@ -72,13 +74,16 @@ def process_all_headlines_data(headlines_list):
     """
     headlines_processed_results = []
     for news_item in headlines_list:
-        image=news_item.get('image')
+        id=news_item.get('id')
+        name=news_item.get('name')
+        author=news_item.get('author')
         title=news_item.get('title')
+        image=news_item.get('image')
         description=news_item.get('description')
         url=news_item.get('url')
         time=news_item.get('publisheAt')
         content=news_item.get('content')
-        new_headlines =Headlines(image,title,description,url,publisheAt,content)
+        new_headlines =Headlines(id,name,author,title,image,description,url,publisheAt,content)
         headlines_processed_results.append(news_headlines)
     return  headlines_processed_results
 #popular news
@@ -105,13 +110,16 @@ def process_all_popular_results(popular_results_list):
      '''
     popular_results = []
     for news_item in popular_results_list:
-        image=news_item.get('image')
+        id=news_item.get('id')
+        name=news_item.get('name')
+        author=news_item.get('author')
         title=news_item.get('title')
+        image=news_item.get('image')
         description=news_item.get('description')
         url=news_item.get('url')
         time=news_item.get('publisheAt')
         content=news_item.get('content')
-        new_popular =Popular(image,title,description,url,publisheAt,content)
+        new_popular =Popular(id,name,author,title,image,description,url,publisheAt,content)
         popular_results.append(news_popular)
     return  popular_results
 
@@ -138,14 +146,17 @@ def process_all_business_headlines_results(business_headlines_results_list):
     
     business_headlines_results = []
     for news_item in business_headlines_results_list :
-        image=news_item.get('image')
+        id=news_item.get('id')
+        name=news_item.get('name')
+        author=news_item.get('author')
         title=news_item.get('title')
+        image=news_item.get('image')
         description=news_item.get('description')
         url=news_item.get('url')
         time=news_item.get('publisheAt')
         content=news_item.get('content')
 
-        business_headlines_object = Business(image,title,description,url,publisheAt,content)
+        business_headlines_object = Business(id,name,author,title,image,description,url,publisheAt,content)
         business_headlines_results.append(business_headlines_object)
         
     return business_headlines_results

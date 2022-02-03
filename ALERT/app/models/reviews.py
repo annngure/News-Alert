@@ -8,6 +8,7 @@ class Review:
         self.url=url
         self.time=time
         self.content=content
+        self.review=review
     def save_review(self):
         Review.all_reviews.append(self)
 

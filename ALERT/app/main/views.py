@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for
 from app import app
-from .request import get_all_news_sources,get_popular_news,get_business_headlines,search_news
+from .request import get_all_news_sources,get_all_news_headlines,get_business_headlines,search_news
 #views
 @app.route('/')
 def index():
@@ -9,10 +9,7 @@ def index():
     '''
 #getting headlines
    
-    all_news_sources =get_all_news_sources()
-    popular_news=get_popular_news()
-    # print(popular_news)
-    # upcoming_news=get_upcoming_news()
+    all_news_sources = get_all_news_sources()
     business_headlines = get_business_headlines()
 
   #  now_showing_news =get_news('now_showing')
