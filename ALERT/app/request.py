@@ -3,11 +3,22 @@ import urllib.request,json
 from  .models.news import Sources,Business,Everything,Headlines
 # News = news.News
 
+
+#KEYS 
+api_key = None
+sources_url = None
+top_headlines_news_url = None
+business_top_headlines_url = None
+everything_news_url = None
+
+def configure_request(app):
+    global api_key,sources_url,top_headlines_news_url,business_top_headlines_url,everything_news_url
 #the  api keys available
 api_key = app.config['NEWS_API_KEY']
-# source_base_api_url= app.config['SOURCE_BASE_API_URL']
+source_url= app.config['SOURCE_BASE_API_URL']
 top_headlines_news_url=app.config['TOP_HEADLINES_BASE_API_URL']
 business_top_headlines_url=app.config['BUSINESS_TOP_HEADLINES']
+everything_news_url = app.config['EVERYTHING_BASE_API_URL']
 # base_url = app.config['NEWS_API_BASE_URL']
 
 def get_all_news_sources(source):
@@ -86,30 +97,30 @@ def process_all_headlines_data(headlines_list):
         new_headlines =Headlines(id,name,author,title,image,description,url,publisheAt,content)
         headlines_processed_results.append(news_headlines)
     return  headlines_processed_results
-#popular news
-def get_popular_news():
+
+def get_everything_news():
     '''
-    function will get popular news and then to pass response to process_all_porpular
+    function will get popular news and then to pass response to process_all_everything
     '''
-    popular_news_url = popular_news_url.format(api_key)
+    everything_news_url = everything_news_url.format(api_key)
 
-    with urllib.request.urlopen(popular_news_url) as url:
-        popular_data = url.read()
-        popular_response = json.loads(popular_data)
-        popular_results = None
+    with urllib.request.urlopen(everything_news_url) as url:
+        everything_data = url.read()
+        everything_response = json.loads(everything_data)
+       everything_results = None
 
-        if popular_response['results']:
-            popular_results_list = popular_response['results']
-            popular_results = process_all_popular_results(popular_results_list)
-    return popular_results
+        if everything_response['results']:
+            everything_results_list = everything_response['results']
+            everything_results = process_all_everything_results(everything_results_list)
+    return everything_results
 
 
-def process_all_popular_results(popular_results_list):
+def process_all_everything_results(everything_results_list):
     '''
-    responsible to convert data passed through get_popular_news() method
+    responsible to convert data passed through get_everything_news() method
      '''
-    popular_results = []
-    for news_item in popular_results_list:
+    everything_results = []
+    for news_item in everything_results_list:
         id=news_item.get('id')
         name=news_item.get('name')
         author=news_item.get('author')
@@ -119,9 +130,9 @@ def process_all_popular_results(popular_results_list):
         url=news_item.get('url')
         time=news_item.get('publisheAt')
         content=news_item.get('content')
-        new_popular =Popular(id,name,author,title,image,description,url,publisheAt,content)
-        popular_results.append(news_popular)
-    return  popular_results
+        new_everything=everything(id,name,author,title,image,description,url,publisheAt,content)
+       everything_results.append(news_everything)
+    return  everything_results
 
 #business news
 
