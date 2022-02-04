@@ -1,5 +1,6 @@
 import unittest
 from .models import news
+import Headlines
 Headlines=headlines.Headlines
 
 class HeadlinesTest(unittest.TestCase):
