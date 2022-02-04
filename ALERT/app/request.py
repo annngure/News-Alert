@@ -1,6 +1,5 @@
-from app import app
 import urllib.request,json
-from  .models.news import Sources,Business,Everything,Headlines
+from  .main.news import Sources,Business,Everything,Headlines
 # News = news.News
 
 
@@ -107,7 +106,7 @@ def get_everything_news():
     with urllib.request.urlopen(everything_news_url) as url:
         everything_data = url.read()
         everything_response = json.loads(everything_data)
-       everything_results = None
+        everything_results = None
 
         if everything_response['results']:
             everything_results_list = everything_response['results']
@@ -131,7 +130,7 @@ def process_all_everything_results(everything_results_list):
         time=news_item.get('publisheAt')
         content=news_item.get('content')
         new_everything=everything(id,name,author,title,image,description,url,publisheAt,content)
-       everything_results.append(news_everything)
+        everything_results.append(news_everything)
     return  everything_results
 
 #business news

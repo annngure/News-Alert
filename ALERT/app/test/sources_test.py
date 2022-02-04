@@ -3,7 +3,7 @@ from .models import news
 import Sources
 Sources=sources.Sources
 
-class class SourcesTest(unittest.TestCase):
+class  SourcesTest(unittest.TestCase):
     '''
     Test Class to test the behaviour of the news class
     '''

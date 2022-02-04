@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for
 from . import main
-from .request import get_all_news_sources,get_all_news_headlines,get_business_headlines,search_news
+from ..request import get_all_news_sources,get_all_news_headlines,get_business_headlines,search_news
 #views
 @main.route('/')
 def index():
@@ -25,7 +25,7 @@ def index():
         return render_template('index.html',sources= all_news_sources,title=title,popular=popular_news,upcoming=upcoming_news,business_headlines=business_headlines)
 
 
-@app.route('/source/<int:title>')
+@main.route('/source/<int:title>')
 def news_headlines(title):
     '''
     View root page fuction that returns the index page and its data
@@ -36,7 +36,7 @@ def news_headlines(title):
 
     return render_template('news.html',title = title,headlines = news_headlines)
 
-@app.route('/search/<source_name>')
+@main.route('/search/<source_name>')
 def search(source_name):
     '''
     view function to dispaly the search results

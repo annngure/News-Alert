@@ -1,7 +1,7 @@
 from flask import Flask
 from .config import DevConfig
 from flask_bootstrap import Bootstrap
-from config import config_options
+# from config import config_options
 
 bootstrap = Bootstrap()
 
@@ -13,12 +13,12 @@ def create_app(config_name):
 #Setting up configuration
     app.config.from_object(config_options[config_name])
 
-#Registering blueprint
-from .models import models as models_blueprint
-app.register_blueprint(models_blueprint)
+# #Registering blueprint
+# from main import main as main_blueprint
+# app.register_blueprint(main_blueprint)
 
 # setting config
-from .requests import configure_request
+from .request import configure_request
 configure_request(app)
 
 #Initializing Flask Extensions
