@@ -55,8 +55,5 @@ class EverythingTest(unittest.TestCase):
         self.assertEqual(self.news_everything.content, "The company behind Irn-Bru has revealed it is increasing its prices after its packaging, ingredients and energy-linked commodity costs jumped, as it raised its sales and profit estimates.\r\nAG Barr sa… [+1933 chars]")
 
 
-
-
-
-
-if __name__ ='__main':
+if __name__ == "__main__":
+    unittest.main()
