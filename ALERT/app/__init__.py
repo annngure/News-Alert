@@ -8,10 +8,10 @@ bootstrap = Bootstrap()
 def create_app(config_name):
 
 #Initializing application
-app = Flask (__name__,instance_relative_config = True)
+    app = Flask (__name__)
 
 #Setting up configuration
-app.config.from_object(config_options[config_name])
+    app.config.from_object(config_options[config_name])
 
 #Registering blueprint
 from .models import models as models_blueprint
@@ -24,7 +24,8 @@ configure_request(app)
 #Initializing Flask Extensions
 bootstrap.init_app(app)
 
-from app import views
-from app import error
+# return app
 
-return app
+
+
+  

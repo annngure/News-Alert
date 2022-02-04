@@ -1,8 +1,8 @@
 from flask import render_template,request,redirect,url_for
-from app import app
+from . import main
 from .request import get_all_news_sources,get_all_news_headlines,get_business_headlines,search_news
 #views
-@app.route('/')
+@main.route('/')
 def index():
     '''
     view root page returns index page and its data
