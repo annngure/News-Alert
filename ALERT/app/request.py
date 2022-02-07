@@ -1,6 +1,5 @@
-import urllib.request,json
-from  .main.news import Sources,Business,Everything,Headlines
 # News = news.News
+
 
 
 #KEYS 
@@ -10,30 +9,34 @@ top_headlines_news_url = None
 business_top_headlines_url = None
 everything_news_url = None
 
+
 def configure_request(app):
     global api_key,sources_url,top_headlines_news_url,business_top_headlines_url,everything_news_url
-#the  api keys available
-api_key = app.config['NEWS_API_KEY']
-source_url= app.config['SOURCE_BASE_API_URL']
-top_headlines_news_url=app.config['TOP_HEADLINES_BASE_API_URL']
-business_top_headlines_url=app.config['BUSINESS_TOP_HEADLINES']
-everything_news_url = app.config['EVERYTHING_BASE_API_URL']
-# base_url = app.config['NEWS_API_BASE_URL']
+    #the  api keys available
+    # breakpoint()
+    api_key = app.config['NEWS_API_KEY']
+    sources_url= app.config['SOURCE_BASE_API_URL']
+    top_headlines_news_url=app.config['TOP_HEADLINES_BASE_API_URL']
+    business_top_headlines_url=app.config['BUSINESS_TOP_HEADLINES_URL']
+    # everything_news_url = app.config['EVERYTHING_BASE_API_URL']
+    # base_url = app.config['NEWS_API_BASE_URL']
 
 def get_all_news_sources(source):
     '''
     Function that gets json response to the url request
     '''
-    get_news_url = sources_url.format(api_key)
+ 
+    get_news_url = sources_url.format(news,api_key)
 
     with urllib.request.urlopen(get_news_url) as url:
-          sources_data =url.read()
-          sources_response = json.loads(source_data)
-          sources_result = None
-          if sources_response['results']:
-             sources_items = source_response['results']
-             sources_results = process_results(source_items)
+        sources_data =url.read()
+        sources_response = json.loads(source_data)
+        sources_results = None
+        if sources_response['results']:
+            sources_items = sources_response['results']
+            sources_results = process_results(sources_items)
     return sources_results
+
 
 def process_results(source_list):
     '''
@@ -67,7 +70,7 @@ def get_all_news_headlines(source):
     '''
     function to pass top-headlines
     '''
-    top_headlines_news_url= top_headlines_news_url.format(source,api_key)
+    top_headlines_news_url= top_headlines_news_url.format(api_key)
 
     with urllib.request.urlopen(top_headlines_news_url) as url:
         headlines_data = url.read()
@@ -97,41 +100,41 @@ def process_all_headlines_data(headlines_list):
         headlines_processed_results.append(news_headlines)
     return  headlines_processed_results
 
-def get_everything_news():
-    '''
-    function will get popular news and then to pass response to process_all_everything
-    '''
-    everything_news_url = everything_news_url.format(api_key)
+# def get_everything_news():
+#     '''
+#     function will get popular news and then to pass response to process_all_everything
+#     '''
+#     everything_news_url = everything_news_url.format(everything,api_key)
 
-    with urllib.request.urlopen(everything_news_url) as url:
-        everything_data = url.read()
-        everything_response = json.loads(everything_data)
-        everything_results = None
+#     with urllib.request.urlopen(everything_news_url) as url:
+#         everything_data = url.read()
+#         everything_response = json.loads(everything_data)
+#         everything_results = None
 
-        if everything_response['results']:
-            everything_results_list = everything_response['results']
-            everything_results = process_all_everything_results(everything_results_list)
-    return everything_results
+#         if everything_response['results']:
+#             everything_results_list = everything_response['results']
+#             everything_results = process_all_everything_results(everything_results_list)
+#     return everything_results
 
 
-def process_all_everything_results(everything_results_list):
-    '''
-    responsible to convert data passed through get_everything_news() method
-     '''
-    everything_results = []
-    for news_item in everything_results_list:
-        id=news_item.get('id')
-        name=news_item.get('name')
-        author=news_item.get('author')
-        title=news_item.get('title')
-        image=news_item.get('image')
-        description=news_item.get('description')
-        url=news_item.get('url')
-        time=news_item.get('publisheAt')
-        content=news_item.get('content')
-        new_everything=everything(id,name,author,title,image,description,url,publisheAt,content)
-        everything_results.append(news_everything)
-    return  everything_results
+# def process_all_everything_results(everything_results_list):
+#     '''
+#     responsible to convert data passed through get_everything_news() method
+#      '''
+#     everything_results = []
+#     for news_item in everything_results_list:
+#         id=news_item.get('id')
+#         name=news_item.get('name')
+#         author=news_item.get('author')
+#         title=news_item.get('title')
+#         image=news_item.get('image')
+#         description=news_item.get('description')
+#         url=news_item.get('url')
+#         time=news_item.get('publisheAt')
+#         content=news_item.get('content')
+#         new_everything=everything(id,name,author,title,image,description,url,publisheAt,content)
+#         everything_results.append(news_everything)
+#     return  everything_results
 
 #business news
 
@@ -186,3 +189,8 @@ def search_news(source):
             search_news_results = process_all_business_headlines_results(search_news_list)
 
     return search_news_results
+
+
+import urllib.request,json
+from  .models import Sources,Business,Headlines
+from app import app

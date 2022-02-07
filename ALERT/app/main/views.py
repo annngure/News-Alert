@@ -7,12 +7,12 @@ def index():
     '''
     view root page returns index page and its data
     '''
-#getting headlines
+    #getting headlines
    
     all_news_sources = get_all_news_sources()
     business_headlines = get_business_headlines()
 
-  #  now_showing_news =get_news('now_showing')
+    #now_showing_news =get_news('now_showing')
 
     title='NEWS ALERT!'
 
@@ -21,7 +21,6 @@ def index():
     if search_news:
         return redirect(url_for('.search',source_name=search_news))
     else:
-
         return render_template('index.html',sources= all_news_sources,title=title,popular=popular_news,upcoming=upcoming_news,business_headlines=business_headlines)
 
 
