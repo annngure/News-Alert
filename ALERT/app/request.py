@@ -51,7 +51,7 @@ def process_articles(sources_list):
         name=news_item.get('name')
         author=news_item.get('author')
         title=news_item.get('title')
-        image=news_item.get('image')
+        image=news_item.get('urlToImage')
         description=news_item.get('description')
         url=news_item.get('url')
         time=news_item.get('publisheAt')
@@ -60,42 +60,6 @@ def process_articles(sources_list):
         sources_articles.append(new_source)
     
     return sources_articles
-
-
-
-def get_all_news_headlines(source):
-    '''
-    function to pass top-headlines
-    '''
-    top_headlines_news_url= top_headlines_news_url.format(api_key)
-
-    with urllib.request.urlopen(top_headlines_news_url) as url:
-        headlines_data = url.read()
-        headlines_response = json.loads(headlines_data)
-        headlines_articles = None
-        if headlines_response["sources"]:
-           headlines_items = headlines_response["sources"]
-           headlines_articles = process_headlines_data(headlines_list)
-    return headlines_articles
-
-def process_headlines_data(headlines_list):
-    """
-   Converting  data given as the Top-Headlines class.
-    """
-    headlines_processed_articles= []
-    for news_item in headlines_list:
-        id=news_item.get('id')
-        name=news_item.get('name')
-        author=news_item.get('author')
-        title=news_item.get('title')
-        image=news_item.get('image')
-        description=news_item.get('description')
-        url=news_item.get('url')
-        time=news_item.get('publisheAt')
-        content=news_item.get('content')
-        new_headlines =Headlines(id,name,author,title,image,description,url,publisheAt,content)
-        headlines_processed_articles.append(news_headlines)
-    return  headlines_processed_articles
 
 #business news
 
@@ -124,7 +88,7 @@ def process_business_articles(business_list):
         name=news_item.get('name')
         author=news_item.get('author')
         title=news_item.get('title')
-        image=news_item.get('image')
+        image=news_item.get('urlToImage')
         description=news_item.get('description')
         url=news_item.get('url')
         time=news_item.get('publisheAt')

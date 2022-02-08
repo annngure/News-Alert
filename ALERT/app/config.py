@@ -7,7 +7,7 @@ class Config:
     # breakpoint()
     SOURCE_BASE_API_URL='https://newsapi.org/v2/top-headlines/{}?apiKey={}'
     NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
-    TOP_HEADLINES_BASE_API_URL='https://newsapi.org/v2/everything?q=top%20headlines&from=2022-02-01&sortBy=popularity&apiKey={}'
+    TOP_HEADLINES_BASE_API_URL='https://newsapi.org/v2/top-headlines?{}&apiKey={}'
     BUSINESS_TOP_HEADLINES_URL='https://newsapi.org/v2/top-headlines/sources?category=business&apiKey={}'
    
 class ProdConfig(Config):

@@ -9,36 +9,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEWS</title>
 </head>
-<body>
+
 
 <!-- Styles block -->
 
 {% block styles%}
 {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+<!-- <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"> -->
+<link rel="stylesheet" href="/app/static/style.css">
+
 {% endblock %}
+<body>
    <!-- Content block -->
     {% block content %}
-    <div class="container">
+    <div class="container" style="background-color: beige;">
         <div class="body">
-            <h1>News-Alert!</h1>
+            <h1 class="text-center" style="color: rgb(190, 42, 79);">News-Alert!</h1>
+            <br>
+            <p style="font-size: larger;text-align: center;color: mediumseagreen;"><strong >Missed news?</strong></p>
+            <br>
+            <p style="font-size: larger;text-align: center;"  >Welcome to News App.
+                All trending and fresh headlines.
+            </p>
         </div>
-        <!-- <form>
-            <input type = "text" name="news_query" placeholder="Search for News" class="form">
-            <button class="btn btn-success" type="submit" value="submit">SEARCH</button>
-        </form>
-    </div> -->
-    <div class ="row">
-        
-        <div class="col-md-12">
-            <h3>Top News Sources</h3>
-            {{macro.displaySourcesList(sources)}}
-        </div>
-        <div class="col-md-12">
-            <h4>Business Headlines</h4>
-            {{macro.displayNews(business)}}
-        </div>
-
+        <br>
+        <br>
+        <div class ="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <h3>Top News Sources</h3>
+                    {{macro.displaySourcesList(sources)}}
+                </div>  
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <h3>Business Headlines</h3>
+                    {{macro.displayNews(business)}}  
+                </div>
+            </div>
+       </div>
     </div>
    
     {% endblock%}

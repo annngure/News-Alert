@@ -1,7 +1,10 @@
+
 {%macro displaySourcesList(sources_list)%}
 
   {%for news_item in sources_list%}
-  <p> <a href="{{news_item.url}}">{{news_item.name}}</a> </p>
+        <p> <a href="{{news_item.url}}">{{news_item.name}}</a> </p>
+  <br> 
+  
   {% endfor %}
 
 {% endmacro %}
@@ -10,9 +13,10 @@
 {%macro displayNews(business_list)%}
 
 {%for news_item in business_list%}
+      <p><a href="{{news_item.url}}">{{news_item.name}}</a></p>
+      <br>
+      <br>  
 
-<p><a href="{{news_item.url}}">{{news_item.name}}</a></p>
 {%endfor%}
 {%endmacro%}
-
 
