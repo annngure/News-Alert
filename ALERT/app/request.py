@@ -14,7 +14,7 @@ everything_news_url = None
 def configure_request(app):
     global api_key,sources_url,top_headlines_news_url,business_top_headlines_url,everything_news_url
     #the  api keys available
-    api_key = os.environ.get('NEWS_API_KEY')
+    api_key = app.config['NEWS_API_KEY']
     sources_url= app.config['SOURCE_BASE_API_URL']
     top_headlines_news_url=app.config['TOP_HEADLINES_BASE_API_URL']
     business_top_headlines_url=app.config['BUSINESS_TOP_HEADLINES_URL']
@@ -29,8 +29,8 @@ def get_all_news_sources(source):
         sources_data =url.read()
         sources_response = json.loads(sources_data)
         sources_articles = None
-        if sources_response['articles']:
-            sources_items = sources_response['articles']
+        if sources_response['sources']:
+            sources_items = sources_response['sources']
             sources_articles = process_articles(sources_items)
     return sources_articles
 
@@ -73,8 +73,8 @@ def get_all_news_headlines(source):
         headlines_data = url.read()
         headlines_response = json.loads(headlines_data)
         headlines_articles = None
-        if headlines_response["source"]:
-           headlines_items = headlines_response["source"]
+        if headlines_response["sources"]:
+           headlines_items = headlines_response["sources"]
            headlines_articles = process_headlines_data(headlines_list)
     return headlines_articles
 
@@ -105,21 +105,21 @@ def get_business_headlines():
     '''
     business_headlines_url = business_top_headlines_url.format(api_key)
     with urllib.request.urlopen(business_headlines_url) as url:
-        business_headlines_data = url.read()
-        business_headlines_response = json.loads(business_headlines_data)
+        business_data = url.read()
+        business_response = json.loads(business_data)
         business_headlines_articles = None
-        if business_headlines_response['articles']:
-           business_headlines_articles_list = business_headlines_response['articles']
-           business_headlines_articles = process_business_articles(business_headlines_articles_list)
+        if business_response['sources']:
+           business_headlines_items = business_response['sources']
+           business_headlines_articles = process_business_articles(business_headlines_items)
     return business_headlines_articles
 
-def process_business_articles(business_headlines_articles_list):
+def process_business_articles(business_list):
     '''
     responsible to convert data passed through get_business_headlines() method
     '''
     
     business_headlines_articles = []
-    for news_item in business_headlines_articles_list :
+    for news_item in business_list :
         id=news_item.get('id')
         name=news_item.get('name')
         author=news_item.get('author')
@@ -129,25 +129,8 @@ def process_business_articles(business_headlines_articles_list):
         url=news_item.get('url')
         time=news_item.get('publisheAt')
         content=news_item.get('content')
-
-        business_headlines_object = Business(id,name,author,title,image,description,url,time,content)
-        business_headlines_articles.append(business_headlines_object)
+        new_business = Business(id,name,author,title,image,description,url,time,content)
+        business_headlines_articles.append(new_business)
         
     return business_headlines_articles
-
-
-# search news
-def search_articles(source):
-    search_article_url='https://newsapi.org/v2/everything?q={}&apiKey={}'.format(source,api_key)
-    with urllib.request.urlopen(search_article_url) as url:
-        search_article_data = url.read()
-        search_article_response = json.loads(search_article_data)
-
-        search_article_results = None
-
-        if search_article_response['articles']:
-            search_article_list = search_article_response['articles']
-            search_article_results =process_business_articles(search_article_list)
-
-    return search_article_results
 
