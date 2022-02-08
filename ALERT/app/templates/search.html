@@ -1,33 +1,14 @@
-<!-- {% extends 'base.html'%}
+{% extends 'base.html'%}
 {% import 'macros.html' as macro%}
 
-{% block content %}
+<!-- {% block content %} -->
     <div class="container">
+        <h1>Search Results</h1>
 
         <div class="row">
-
-            <h3> Found {{ news| count }} matches </h3>
-            <hr>
-            <ul>
-                {{ macro.displayNewsList(news)}}
-            </ul>
-
-        </div>
-
+        <br>
+        {{macro.displayOtherNews(sources_list)}}
     </div>
-{% endblock %} -->
-
-
-{% extends 'base.html' %}
-{% import 'macros.html' as macro %}
-
-{% block content %}
-<a href="/" class="alert-link">HOME</a>
-<h3>Search results...</h3>
-<div class="container">
-    <div class="row">
-        <hr>
-        {{macro.displayOtherNews(results)}}
-    </div>
-</div>
-{% endblock %}
+    {{ all_news_sources.title }}
+    </div> 
+<!-- {% endblock %}  -->

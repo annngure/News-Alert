@@ -1,15 +1,63 @@
- {%macro displaySourcesList(sources_list)%}
- 
-    {%for news in sources_list %}
-    <div class="col-xs-12 col-sm-4 col-md-2">
-        <li>{{news.title}}</li> 
-    <!-- <li class="text-center">
-        <a href="/news/{{news.headlines}}">
-            {{ news.title|truncate(10)}}</a>
-    </li> -->
-</div> 
+{%macro displaySourcesList(sources_list)%}
 
+  {%for news_item in sources_list%}
+  <p> <a href="/source/{{news_item.id}}">{{news_item.name}}</a> </p>
+  {% endfor %}
 
-    {%endfor%}
 {% endmacro %}
+
+{% macro displayNews(news_items) %}
+
+{%for news_item in sources_list%}
+
+<div class="container">
+    <img src="{{news_item.urlToImage}}" class="image" style="height: 20rem;">
+</div>
+<h4>{{news_item.title|truncate(80)}}</h4>
+<p class="text">{{news_item.description}}</p>
+<p>by <a><strong>{{news_item.author}}</strong></a>, {{news_item.time}} </p>
+<a href="{{news_item.url}}" class="btn btn-primary btn-md">Read more</a>
+
+
+{% endfor %}
+{% endmacro %}
+
+<!-- search -->
+{% macro displayOtherNews(sources_list) %}
+
+{%for news_item in sources_list%}
+
+
+<div class="col-md-6">
+    <div class="container">
+        <img src="{{news_item.urlToImage}}" class="image">
+    </div>
+    <h4>{{news_item.title|truncate(80)}}</h4>
+    <p class="text">{{news_item.description}}</p>
+    <p>by <a><strong>{{item.author}}</strong></a>, {{news_item.publishedAt}} </p>
+    <a href="{{news_item.url}}" class="btn btn-primary btn-md">Read more</a>
+    <hr>
+</div>
+
+{% endfor %}
+
+{% endmacro %}
+
+<!-- news -->
+{%macro  displayNews(sources_list)%}
+
+{%for news_item in sources_list%}
+
+<div class="col-md-6">
+  <div class="container">
+    <img src="{{news_item.urlToImage}}" class="image">
+  </div>
+  <h4>{{news_item.title|truncate(80)}}</h4>>
+  <p class="text">{{news_item.description}}</p>
+  <p>by <a><strong>{{item.author}}</strong></a>, {{news_item.publishedAt}} </p>
+  <a href="{{news_item.url}}" class="btn btn-primary btn-md">Read more</a>
+  <hr>
+</div>
+{%endfor%}
+{%endmacro%}
 
